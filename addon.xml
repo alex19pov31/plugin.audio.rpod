@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<addon id="plugin.audio.rpod"
+       name="Rpod.ru"
+       version="0.0.1"
+       provider-name="noname">
+  <requires>
+    <import addon="xbmc.python" version="1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" provides="audio" library="addon.py">
+    <provides>audio</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Rpod.ru</summary>
+    <description>
+      Прослушивание подкастов с rpod.ru
+    </description>
+    <platform>all</platform>
+  </extension>
+</addon>
