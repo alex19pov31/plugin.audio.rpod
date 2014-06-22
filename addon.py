@@ -39,7 +39,7 @@ def getAudios(url, page=1):
             index += 1
             if index >= (int(page) * count) + count:
                 addDir('Вперёд >>', url, 10, None, int(page) + 1)
-                break;
+                break
         except:
             pass
 
