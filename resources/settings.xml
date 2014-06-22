@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="Прокси-сервер">
+        <setting label="Тип" type="enum" id="proxy_type" values="HTTP|HTTPS|SOCKS"/>
+        <setting label="URL" type="text" id="proxy_url" default=""/>
+        <setting label="Порт" type="number" id="proxy_port" default=""/>
+    </category>
+</settings>

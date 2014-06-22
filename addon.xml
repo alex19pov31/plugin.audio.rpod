@@ -2,7 +2,7 @@
 <addon id="plugin.audio.rpod"
        name="Rpod.ru"
        version="0.0.1"
-       provider-name="noname">
+       provider-name="Nesterov Alexandr">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
   </requires>
@@ -14,6 +14,8 @@
     <description>
       Прослушивание подкастов с rpod.ru
     </description>
+    <source>https://github.com/alex19pov31/plugin.audio.rpod.git</source>
+    <email>alex19pov31@gmail.com</email>
     <platform>all</platform>
   </extension>
 </addon>

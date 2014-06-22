@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import urllib, urllib2, re, sys
-import xbmcplugin, xbmcgui
+import xbmcplugin, xbmcgui, xbmcaddon
 import xml.etree.ElementTree as ET
 
 def addLink(title, url, picture):
@@ -47,14 +47,31 @@ def getChannels(url):
     html = getHTML(url)
     links = re.compile('<div class="title"><a amber="community:\d*" href="(.+?)">(.+?)</a></div>').findall(html)
     images = re.compile('<img src="(.+?)" width="100" height="100" amber="community:\d*" class="avatar">').findall(html)
-    for index in range(0, len(images)):
-        addDir(links[index][1].replace('&quot;', '"'), links[index][0] + 'rss.xml', 10, images[index])
+    addDir('<< Главная', url, None, None, 1)
+    try:
+        for index in range(0, len(images)):
+            addDir(links[index][1].replace('&quot;', '"'), links[index][0] + 'rss.xml', 10, images[index])
+        nextLink = re.compile('href="(.+?)"  id="next_page"').findall(html)
+        addDir('Следующая страница >>', 'http://rpod.ru' + nextLink[0], 5, None)
+    except:
+        pass
 
 def getMainMenu():
     addDir('Каналы', 'http://rpod.ru/channels/', 5, None)
     addDir('Подкасты', 'http://rpod.ru/podcasts/?sortby=last', 5, None)
 
 def getHTML(url):
+    proxy_url = xbmcplugin.getSetting(int(sys.argv[1]), 'proxy_url')
+    proxy_port = xbmcplugin.getSetting(int(sys.argv[1]), 'proxy_port')
+    proxy_type = xbmcplugin.getSetting(int(sys.argv[1]), 'proxy_type')
+    if proxy_url != '' and proxy_url != None:
+        if proxy_type == 'HTTPS': type = 'https'
+        if proxy_type == 'SOCKS': type = 'socks'
+        else: type = 'http'
+        us_proxy = type + "://" + proxy_url + ":" + proxy_port
+        proxy_handler = urllib2.ProxyHandler({type: us_proxy})
+        opener = urllib2.build_opener(proxy_handler)
+        urllib2.install_opener(opener)
     headers = {'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3', 'Content-Type':'application/x-www-form-urlencoded'}
     conn = urllib2.urlopen(urllib2.Request(url, urllib.urlencode({}), headers))
     html = conn.read()
